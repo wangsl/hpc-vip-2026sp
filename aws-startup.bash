@@ -1,3 +1,6 @@
 #!/bin/bash
-
-echo "Hello world" >> /tmp/nyu-startup.log 2>&1
+(
+echo "Hello world" 
+hostname
+env | sort -u
+) >> /tmp/nyu-startup.log 2>&1
