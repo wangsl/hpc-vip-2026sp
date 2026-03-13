@@ -1,0 +1,91 @@
+Imds:
+  ImdsSupport: v2.0
+HeadNode:
+  InstanceType: c5a.4xlarge
+  Imds:
+    Secured: true
+  Ssh:
+    KeyName: aws-hpc-vip-2025fa
+  LocalStorage:
+    RootVolume:
+      VolumeType: gp3
+      Size: 500
+  Networking:
+    SubnetId: subnet-02be1d6c92bd517a1
+  Iam:
+    AdditionalIamPolicies:
+      - Policy: arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
+  Dcv:
+    Enabled: true
+    AllowedIps: 141.153.187.6/32
+  CustomActions:
+    OnNodeStart:
+      Script: >-
+        https://raw.githubusercontent.com/wangsl/hpc-vip-2026sp/refs/heads/main/aws-startup.bash
+      Args:
+        - ''
+Scheduling:
+  Scheduler: slurm
+  SlurmQueues:
+    - Name: queue-1
+      AllocationStrategy: lowest-price
+      ComputeResources:
+        - Name: queue-1-cr-0
+          Instances:
+            - InstanceType: c5a.8xlarge
+            - InstanceType: c6i.8xlarge
+            - InstanceType: c6in.8xlarge
+          MinCount: 0
+          MaxCount: 10
+          DisableSimultaneousMultithreading: true
+      ComputeSettings:
+        LocalStorage:
+          RootVolume:
+            VolumeType: gp3
+            Size: 100
+      Networking:
+        SubnetIds:
+          - subnet-067263e8ee6f57104
+        PlacementGroup:
+          Enabled: true
+      CustomActions:
+        OnNodeStart:
+          Script: >-
+            https://raw.githubusercontent.com/wangsl/hpc-vip-2026sp/refs/heads/main/aws-startup.bash
+    - Name: queue-2
+      AllocationStrategy: lowest-price
+      ComputeResources:
+        - Name: queue-2-cr-0
+          Instances:
+            - InstanceType: g6.xlarge
+          MinCount: 0
+          MaxCount: 10
+          DisableSimultaneousMultithreading: true
+      ComputeSettings:
+        LocalStorage:
+          RootVolume:
+            VolumeType: gp3
+            Size: 100
+      Networking:
+        SubnetIds:
+          - subnet-067263e8ee6f57104
+        PlacementGroup: {}
+      CustomActions:
+        OnNodeStart:
+          Script: >-
+            https://raw.githubusercontent.com/wangsl/hpc-vip-2026sp/refs/heads/main/aws-startup.bash
+  SlurmSettings: {}
+Region: us-east-1
+Image:
+  Os: alinux2
+SharedStorage:
+  - Name: FsxLustre0
+    StorageType: FsxLustre
+    MountDir: /work
+    FsxLustreSettings:
+      DeletionPolicy: Delete
+      StorageCapacity: 1200
+      DeploymentType: SCRATCH_2
+Tags:
+  - Key: parallelcluster-ui
+    Value: 'true'
