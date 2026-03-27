@@ -20,11 +20,11 @@ function create_user_accounts()
   done <<EOF
 kc4207:x:3334730:3334730:Kevin Chan:/home/kc4207:/bin/bash
 np3129:x:4441975:4441975:Nishant Pushparaju:/home/np3129:/bin/bash
-np3129:x:4441975:4441975:Nishant Pushparaju:/home/np3129:/bin/bash
+ot2131:x:4337762:4337762:Om Ajay Thakur:/home/ot2131:/bin/bash
+sw77:x:1296493:1296493:Shenglong Wang:/home/sw77:/bin/bash
 tc1841:x:2420783:2420783:Taidi Chen:/home/tc1841:/bin/bash
 tc4119:x:4284622:4284622:Robin Chen:/home/tc4119:/bin/bash
-tc4119:x:4284622:4284622:Robin Chen:/home/tc4119:/bin/bash
-sw77:x:1296493:1296493:Shenglong Wang:/home/sw77:/bin/bash
+zl4682:x:3912091:3912091:Ashley Liu:/home/zl4682:/bin/bash
 EOF
 
   unset IFS
